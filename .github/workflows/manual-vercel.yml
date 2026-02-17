@@ -2,7 +2,6 @@ name: Manual Deploy to Vercel
 
 on:
   workflow_dispatch:  # Manual trigger button
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
