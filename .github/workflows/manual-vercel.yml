@@ -1,0 +1,25 @@
+name: Manual Deploy to Vercel
+
+# Manual trigger only
+on:
+  workflow_dispatch:  # Click "Run workflow" in Actions tab
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        id: deploy
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: './'  # Project root
+
+      - name: Show deployment URL
+        run: echo "Deployed to: ${{ steps.deploy.outputs.preview-url }}"
